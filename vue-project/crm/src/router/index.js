@@ -3,7 +3,8 @@ import VueRouter from 'vue-router'
 import Index from '../views/index.vue'
 
 // 导入子映射表
-import home from './home.js'
+import org from './org.js'
+import customer from './customer.js'
 
 Vue.use(VueRouter)
 
@@ -12,7 +13,7 @@ const routes = [
     path: '/',
     name: 'index',
     component: Index,
-    children: home
+    children: [].concat(org, customer)
   },
   {
     path: '/login',
