@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{name}} === {{year}} === {{obj.name}}
+    </div>
+
+    <!-- IMPORT JS -->
+    <script src="../../node_modules/vue/dist/vue.js"></script>
+    <!-- <script>
+        // Object.defineProperty: 对一个对象中的某个属性定义（处理）
+        let obj = {
+            age: 10,
+            name: 'brolly'
+        };
+
+        // 设置属性的GETTER/SETTER, 我们可以在GETTER/SETTER中监听当前属性设置和获取的时候做什么；这也是vue2.0响应式数据（双向数据绑定）实现的原理，vue3.0采用的是PROXY
+        Object.defineProperty(obj, 'name', {
+            get() {
+                console.log('getter');
+                return 'hello world'
+            },
+            set(value) {
+                console.log('setter', value);
+            }
+        })
+
+        // console.log(obj.name);
+        obj.name = '哈哈哈'
+
+      /*   Object.defineProperty(obj, 'name', {
+            value: 'hello',
+            // 是否允许当前的属性被删除
+            configurable: true,
+            // 是否为可枚举的属性
+            enumerable: true,
+            // 控制当前属性能否被修改
+            writable: true
+        }) */
+        // delete obj.name;
+        // delete obj.age;
+        // console.log(obj)
+        // for(let key in obj) {
+        //     console.log(key)
+        // }
+    </script> -->
+
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                // 响应式数据（基于Object.defineProperty进行处理过的GETTER/SETTER）
+                name: '小明',
+                obj: {}
+            },
+
+            created() {
+                this.year = 20;
+            },
+            mounted() {
+                setTimeout(()=> {
+                    // this.name = 'HELLO';
+                    // this.year = 21;
+                    this.obj.name = 'WORLD';
+                }, 1000)
+            },
+        })
+        
+    </script>
+</body>
+</html>

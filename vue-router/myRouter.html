@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../../node_modules/vue/dist/vue.js"></script>
+    <script src="./MYROUTER.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h2>{{name}}</h2>
+        <router-link to="/nav1">nav1</router-link>
+        <router-link to="/nav2">nav2</router-link>
+        <router-view></router-view>
+    </div>
+    <script>
+        let nav1 = {
+            template: "<h1>这是list下的nav1</h1>"
+        };
+        let nav2 = {
+            template: "<h2>这是list下的nav2</h2>"
+        };
+
+        Vue.use(VueRouter);
+
+        let router = new VueRouter({
+            routes: [
+                {
+                    path:'/nav1',
+                    component: nav1
+                },
+                {
+                    path: '/nav2',
+                    component: nav2
+                }
+            ]
+        });
+        let vm = new Vue({
+            el: '#app',
+            router,
+            data: {
+                name: '你好'
+            },
+        })
+    </script>
+</body>
+
+</html>

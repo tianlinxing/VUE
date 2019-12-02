@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{obj.name}}
+        <br>
+        {{arr}}
+    </div>
+
+    <!-- IMPORT JS -->
+    <script src="../../node_modules/vue/dist/vue.js"></script>
+    <script>
+        let obj = {};
+        let arr = [10];
+        let vm = new Vue({
+            // 基于querySelector获取的 指定的容器不能是html和body
+            el: '#app',
+            data: {
+                obj,
+                arr
+            },
+        });
+
+        setTimeout(()=>{
+            // vm.obj.name = 'hello'
+            // vm.obj = {
+            //     ...obj,
+            //     name: 'hello'
+            // }
+            // vm.$set(vm.obj, 'name', 'hello');
+
+            // vm.arr = [...arr, 20];
+            vm.arr.push(20);
+
+
+        }, 1000);
+
+        /* 
+            在胡子语法中绑定的数据值是对象类型，会基于JSON.stringify把其编译为字符串再呈现出来（而不是直接toString处理的）
+            并不是所有的数据更改都会通知视图重新渲染
+                1. 初始数据是一个对象，对象中没有xxx键值对，后期新增的键值对是不会让视图重新渲染的;
+            解决办法：
+                + 最好在初始化数据的时候，就把视图需要的数据提前声明好（可以是空值，但是要有这个属性）=> 原理：只有data中初始化过的属性才有GET/ET
+                + 不要修改某个属性名，而是把对象的整体替换（指向新的堆内存）
+                + 可以基于vm.$set内置方法修改数据，vm.$set(要修改的对象, 要修改的属性名, 要修改的属性值)
+                2. 如果数据是一个数组，我们修改数据基于arr[n] = xxx 或者arr.length-- 等操作方法，是无法让视图重新渲染的，需要基于：
+                    + push/pop 等内置的方法
+                    + 重新把arr的值重写（指向新的内存）
+                    + vm.$set
+         */
+    </script>
+</body>
+</html>

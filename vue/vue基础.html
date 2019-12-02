@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        {{msg}}
+        人民币：￥<input type="text" v-model="money">元
+        <br>
+        美元：$ <span>{{money/7.027}}</span>
+    </div>
+    <div id="box">
+        <span>{{n}}</span>
+        <br>
+        <button @click='fn'>点我</button>
+    </div>
+
+    <!-- IMPORT JS -->
+    <script src="../../node_modules/vue/dist/vue.js"></script>
+
+    <script>
+        // v-model先实现把数据绑定到视图层 （给input设置VALUE值），然后监听文本框内容的改变，一旦改变，会把数据也跟着改变，数据一变，视图也会重新的渲染
+        // 把msg数据绑定在页面#app中，一秒后，让数据更改，同时也期望视图也跟着更改
+
+
+        // 没创建一个实例，就相当于创建一个viewModel监听器，可以监听对应视图和对应数据的相互改变
+        let vm1 = new Vue({
+            el: '#app', // el element当前监听器监听的视图 (基于querySelector获取)
+            // data 当前监听器监听的数据（这些监听器的数据会挂载到vm1实例上，也就是vm1.msg=xxx来操作了）
+            data: {
+                msg: 'hello world~',
+                money: 0
+            }
+        })
+
+        setTimeout(() => {
+            vm1.msg = '你好世界';
+            // app.innerHTML = vm1.msg;
+        }, 1000);
+    </script>
+
+    <script>
+        let vm2 = new Vue({
+            el: '#box',
+            data: {
+                n: 0,
+            },
+            // 视图中需要使用的方法
+            methods: {
+                fn() {
+                    // this=> vm2
+                    this.n ++;
+                }
+            },
+        });
+
+
+        /* let box = document.getElementById('box'),
+            span = box.querySelector('span'),
+            btn = box.querySelector('button');
+        span.innerHTML = 0;
+        btn.onclick = function() {
+            span.innerHTML ++;
+        } */
+    </script>
+
+    <script>
+
+        7.027
+    </script>
+    <!-- <script>
+        // 把msg数据绑定在页面#app中，一秒后，让数据更改，同时也期望视图也跟着更改
+        let msg = 'hello world~';
+        setTimeout(() => {
+            msg = '你好世界';
+            app.innerHTML = msg;
+        }, 1000);
+
+        let app = document.getElementById('app');
+        app.innerHTML = msg;
+    </script> -->
+</body>
+
+</html>

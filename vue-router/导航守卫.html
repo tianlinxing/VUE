@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../../node_modules/vue/dist/vue.js"></script>
+    <script src="../../node_modules/vue-router/dist/vue-router.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <router-link to="/home">首页</router-link>
+        <router-link to="/list">列表</router-link>
+        <router-view></router-view>
+    </div>
+
+
+    <template id="list">
+        <div>
+            <h1>列表页</h1>
+            <router-link to="/list/nav1">导航1</router-link>
+            <router-link to="/list/nav2">导航2</router-link>
+            <router-view></router-view>
+        </div>
+    </template>
+    <script>
+        Vue.use(VueRouter);
+
+        let home = {
+            template: "<h2>首页</h2>",
+            created() {
+                console.log(this.$route.query)
+            },
+            beforeRouteEnter (to, from, next) {
+                // this不是当前实例
+            },
+            beforeRouteUpdate() {
+                
+            },
+            beforeRouteLeave (to, from, next) {
+                // ...
+            }
+        };
+        let list = {
+            template: "#list",
+            created() {
+                console.log(this)
+            },
+            methods: {
+                fn() {
+                    if (this.$route.fullPath === '/list/nav1') return;
+                    this.$router.push('/list/nav1');
+                }
+            },
+        };
+
+        let nav1 = {
+            template: "<h2>这是list下的nav1</h2>"
+        };
+        let nav2 = {
+            template: "<h2>这是list下的nav2</h2>"
+        };
+
+        let page404 = {
+            template: "<h2>404</h2>",
+            created() {
+                console.log(this);
+            },
+        }
+        const routes = [
+            {
+                path: '/',
+                redirect: '/home'
+            },
+            {
+                path: '/home',
+                name: 'home',
+                component: home,
+                meta: {
+                    myTil: '首页'
+                }
+            },
+            {
+                path: '/list',
+                name: 'list',
+                component: list,
+                meta: {
+                    myTil: '列表'
+                },
+                children: [
+                    {
+                        path: '/list/nav1',
+                        name: 'nav1',
+                        component: nav1,
+                        meta: {
+                            myTil: 'nav1'
+                        },
+                        beforeEnter: (to, from, next) => {
+                            // 路由独享守卫
+                        }
+                    },
+                    {
+                        path: '/list/nav2',
+                        name: 'nav2',
+                        component: nav2,
+                        meta: {
+                            myTil: 'nav1'
+                        }
+                    }
+                ]
+            },
+            {
+                path: '*',
+                component: page404
+            }
+        ];
+        let router = new VueRouter({
+            mode: 'hash',
+            routes,
+
+        });
+
+        // 前置守卫
+        router.beforeEach(function (to, from, next) {
+            console.log(to, from, next);
+            document.title = to.meta.myTil;
+            next();
+        });
+
+        // 全局后置守卫
+        router.afterEach(function (to, from) {
+            // 跳转之后触发
+            console.log(to, from);
+        })
+
+        let vm = new Vue({
+            el: '#app',
+            router,
+            data: {
+                name: "你好",
+            }
+        })
+
+        /* 
+            全局守卫 beforeEach((to, from, next) => {})
+                    beforeResolve((to, from, next)=> {})
+                    afterEach((to, from) => {})
+            路由独享守卫 beforeEnter: ()=>{} 用到路由映射表里面的
+            在组件内使用的守卫
+                beforeRouterEnter() {不能调用this}
+                beforeRouterUpdate() {}
+                beforeRouterLeave() {}
+        
+        */
+    </script>
+
+</body>
+
+</html>
