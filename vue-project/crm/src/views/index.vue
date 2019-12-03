@@ -1,14 +1,25 @@
 <template>
   <div>
     <el-container>
-      <el-header>Header</el-header>
-      <el-container>
-        <el-aside width="200px">Aside</el-aside>
-        <el-container>
-          <el-main>Main</el-main>
-        </el-container>
-      </el-container>
-      <el-footer>Footer</el-footer>
+      <el-header class="clearfix">
+        <h2 class="lt">CRM客户管理系统</h2>
+        <div class="topTabBox lt">
+          <div class="lt">
+            <router-link to="/org" tag="span">组织结构</router-link>
+          </div>
+          <div class="lt">
+            <router-link to="/crm" tag="span">客户管理</router-link>
+          </div>
+        </div>
+        <div class="userNameBox rt">
+          <span>您好，珠峰培训</span>
+          <span>安全退出</span>
+        </div>
+      </el-header>
+      <div class="middle_content_box">
+        <router-view></router-view>
+      </div>
+      <el-footer class="footer_bottom">Footer</el-footer>
     </el-container>
   </div>
 </template>
@@ -23,16 +34,74 @@ export default {
 };
 </script>
 <style lang="less">
+.topTabBox {
+  padding: 0 60px;
+  > div {
+    margin: 0 20px;
+    cursor: pointer;
+    color: #eee;
+    box-sizing: border-box;
+    &:hover {
+      color: #fff;
+      &::after {
+        content: "";
+        display: block;
+        width: 100%;
+        position: relative;
+        bottom: 3px;
+        border-bottom: 2px solid rgb(9, 209, 192);
+      }
+    }
+    > span {
+      display: block;
+      width: 100%;
+      height: 100%;
+      font-size: 14px;
+    }
+
+    > span.router-link-active {
+      color: rgb(9, 209, 192);
+    }
+  }
+}
+.userNameBox {
+  > span {
+    cursor: pointer;
+    padding-left: 20px;
+  }
+}
+.middle_content_box {
+  position: absolute;
+  top: 60px;
+  bottom: 60px;
+  width: 100%;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  > div {
+    height: 100%;
+    .el-container {
+      height: 100%;
+    }
+  }
+}
+
+.footer_bottom {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
 .el-header,
 .el-footer {
-  background-color: #b3c0d1;
-  color: #333;
+  background-color: rgb(78, 78, 78);
+  color: #fff;
   text-align: center;
   line-height: 60px;
 }
 
 .el-aside {
-  background-color: #d3dce6;
+  background-color: rgb(136, 136, 136);
   color: #333;
   text-align: center;
   line-height: 200px;

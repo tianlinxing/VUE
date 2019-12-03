@@ -4,7 +4,7 @@ import Index from '../views/index.vue'
 
 // 导入子映射表
 import org from './org.js'
-import customer from './customer.js'
+import crm from './customer.js'
 
 Vue.use(VueRouter)
 
@@ -13,7 +13,21 @@ const routes = [
     path: '/',
     name: 'index',
     component: Index,
-    children: [].concat(org, customer)
+    redirect: '/org',
+    children: [
+      {
+        path: '/org',
+        name: 'org',
+        component: () => import(/* webpackChunkName: "ORG" */ '../views/ORG.vue'),
+        children: org
+      },
+      {
+        path: '/crm',
+        name: 'crm',
+        component: () => import(/* webpackChunkName: "CRM" */ '../views/CRM.vue'),
+        children: crm
+      },
+    ]
   },
   {
     path: '/login',

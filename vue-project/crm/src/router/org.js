@@ -8,33 +8,69 @@ import addUser from '@/components/user/add'
 
 export default [
     {
-        path: '/department',
+        path: '/org/department',
         name: 'department',
-        component: department
+        component: department,
+        meta: {
+            id: '0',
+            type: 'department',
+            rootTil: "部门管理",
+            til: '部门列表',
+            icon: 'el-icon-s-operation'
+        }
     },
     {
-        path: '/addDepartment',
+        path: '/org/addDepartment',
         name: 'addDepartment',
-        component: addDepartment
+        component: addDepartment,
+        meta: {
+            type: 'department',
+            rootTil: "部门管理",
+            til: '新增部门'
+        }
     },
     {
-        path: '/job',
+        path: '/org/job',
         name: 'job',
-        component: job
+        component: job,
+        meta: {
+            id: '1',
+            type: 'job',
+            rootTil: "职务管理",
+            til: '职务列表',
+            icon: 'el-icon-suitcase'
+        }
     },
     {
-        path: '/addJob',
+        path: '/org/addJob',
         name: 'addJob',
-        component: addJob
+        component: addJob,
+        meta: {
+            type: 'job',
+            rootTil: "职务管理",
+            til: '新增职务'
+        }
     },
     {
-        path: '/user',
+        path: '/org/user',
         name: 'user',
-        component: user
+        component: user,
+        meta: {
+            id: '2',
+            type: 'user',
+            rootTil: "员工管理",
+            til: '员工列表',
+            icon: 'el-icon-user'
+        }
     },
     {
-        path: '/addUser',
+        path: '/org/addUser',
         name: 'addUser',
-        component: addUser
+        component: addUser,
+        meta: {
+            type: 'user',
+            rootTil: "员工管理",
+            til: '新增员工'
+        }
     },
 ]

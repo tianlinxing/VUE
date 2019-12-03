@@ -22,8 +22,8 @@
   </div>
 </template>
 <script>
-import { login } from '@/api/login.js'
-import MD5 from 'md5'
+import { login } from "@/api/login.js";
+import MD5 from "md5";
 // @ is an alias to /src
 export default {
   name: "login",
@@ -35,19 +35,31 @@ export default {
   },
   components: {},
   methods: {
-      sign() {
-          if(!this.name || !this.psw) {
-              this.$message.error('用户名或者密码不能为空');
-              return
-
-          }
-          let obj = {
-              account: this.name,
-              password: MD5(this.psw)
-          }
-          login(obj, this)
+    sign() {
+      if (!this.name || !this.psw) {
+        this.$message.error("用户名或者密码不能为空");
+        return;
       }
-  },
+      let obj = {
+        account: this.name,
+        password: MD5(this.psw)
+      };
+      login(obj).then(data => {
+        // console.log(data);
+        if(data.code === 0) {
+          this.$alert('恭喜登录成功', '提示', {
+            confirmButtonText: '确定',
+            callback: action => {
+              console.log(action)
+              // action是告诉我们点击了哪个按钮
+              this.$router.push('/');
+
+            }
+          })
+        }
+      });
+    }
+  }
 };
 </script>
 <style lang="less">
