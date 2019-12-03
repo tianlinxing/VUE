@@ -24,11 +24,22 @@
   </div>
 </template>
 <script>
+// 在该组件验证登录
+import { judgeLogin } from '@/api/index.js'
 // @ is an alias to /src
 export default {
   name: "home",
   data() {
     return {};
+  },
+
+  created() {
+    judgeLogin().then(flag=>{
+      // 若flag是false 代表登录状态是失败的
+      if(!flag) {
+        this.$router.push('/login');
+      }
+    })
   },
   components: {}
 };
