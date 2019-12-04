@@ -9,10 +9,10 @@ const http = axios.create({
     transformRequest(data) {
         // lodash
         let str = ''
-        for(let k in data) {
+        for (let k in data) {
             str += `${k}=${data[k]}&`
         }
-        console.log(data)
+
         return str
     },
     params: {

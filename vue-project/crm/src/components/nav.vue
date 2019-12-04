@@ -28,7 +28,7 @@
 // @ is an alias to /src
 export default {
   name: "my-aside",
-  props: ['ary'],
+  props: ["ary"],
   data() {
     return {
       menuList: [],
@@ -57,6 +57,17 @@ export default {
         if (!this.power) return false; // 若不存在power 则数组为空即可
         return this.power.includes(item[0].meta.power);
       });
+
+      // 权限校验完成之后 设置默认路径
+      let url = this.menuList[0] && this.menuList[0][0].path;
+      let ary = this.$route.path.split("/");
+      if (ary.length > 2 && ary.pop().length > 0) {
+        // 说明路径是在二级路径下，这时什么也不做
+        // ary.length>2 说明至少有两个 /
+        // ary.pop().length>0 说明最后一项的长度不是0， 也就是第二个后边有内容也就是当前是二级路由
+      } else {
+        this.$router.push(url);
+      }
     }
   },
   components: {}
