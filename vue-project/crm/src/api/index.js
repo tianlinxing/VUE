@@ -31,3 +31,12 @@ export function updateDpList(option) {
 export function getUserList(option) {
     return http.get('/user/list', { params: option })
 }
+
+
+export function addUserList(option) {
+    return http.post('/user/add', option)
+}
+// 获取职位列表
+export function getJobList() {
+    return http.get('/job/list')
+}

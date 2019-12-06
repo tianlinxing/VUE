@@ -13,7 +13,7 @@
         </div>
         <div class="userNameBox rt">
           <span>您好，珠峰培训</span>
-          <span>安全退出</span>
+          <span @click="logout">安全退出</span>
         </div>
       </el-header>
       <div class="middle_content_box">
@@ -25,7 +25,8 @@
 </template>
 <script>
 // 在该组件验证登录
-import { judgeLogin } from '@/api/index.js'
+import { judgeLogin } from "@/api/index.js";
+import { signOut } from "@/api/login";
 // @ is an alias to /src
 export default {
   name: "home",
@@ -34,14 +35,23 @@ export default {
   },
 
   created() {
-    judgeLogin().then(flag=>{
+    judgeLogin().then(flag => {
       // 若flag是false 代表登录状态是失败的
-      if(!flag) {
-        this.$router.push('/login');
+      if (!flag) {
+        this.$router.push("/login");
       }
-    })
+    });
   },
-  components: {}
+  components: {},
+  methods: {
+    logout() {
+      signOut().then(data => {
+        if (data.code == 0) {
+          this.$router.push("/login");
+        }
+      });
+    }
+  }
 };
 </script>
 <style lang="less">

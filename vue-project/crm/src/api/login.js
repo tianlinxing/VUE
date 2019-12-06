@@ -18,10 +18,14 @@ export function login(option) {
                 // }
             });
         }
-        if(data.code === 0) {
+        if (data.code === 0) {
             localStorage.setItem('power', data.power)
         }
         return data // 给后边then的参数
 
     })
-} 
+}
+
+export function signOut() {
+    return http.get('/user/signout')
+}

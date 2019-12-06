@@ -17,7 +17,7 @@ const {
 route.post('/login', (req, res) => {
 	let {
 		account = '',
-			password = ''
+		password = ''
 	} = req.body || {};
 	password = handleMD5(password);
 
@@ -42,7 +42,7 @@ route.post('/login', (req, res) => {
 //=>检测是否登录
 route.get('/login', (req, res) => {
 	const userID = req.session.userID;
-	console.log('userID',req.session)
+	console.log('userID', req.session)
 	if (userID) {
 		res.send(success(true));
 		return;
@@ -64,7 +64,7 @@ route.get('/list', (req, res) => {
 	let data = req.$userDATA;
 	let {
 		departmentId = 0,
-			search = ''
+		search = ''
 	} = req.query;
 	if (parseFloat(departmentId) !== 0) {
 		data = data.filter(item => {
@@ -139,7 +139,7 @@ route.post('/add', (req, res) => {
 	passDATA = Object.assign({
 		id: $userDATA.length === 0 ? 1 : (parseFloat($userDATA[$userDATA.length - 1]['id']) + 1),
 		name: '',
-		password: handleMD5('e807f1fcf82d132f9bb018ca6738a19f'),
+		password: handleMD5('e10adc3949ba59abbe56e057f20f883e'),
 		sex: 0,
 		email: '',
 		phone: '',
@@ -223,7 +223,7 @@ route.post('/resetpassword', (req, res) => {
 	let $userDATA = req.$userDATA;
 	let {
 		userId = 0,
-			password
+		password
 	} = req.body;
 	if (parseFloat(userId) === 0) {
 		//=>修改登录者的密码

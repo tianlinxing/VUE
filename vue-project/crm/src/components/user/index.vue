@@ -4,7 +4,12 @@
       <el-select @change="selectChange" placeholder="请选择部门" :value="value">
         <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id"></el-option>
       </el-select>
-      <el-input placeholder="请输入内容" v-model="input" style="width:300px; margin-left:20px" @change="search">
+      <el-input
+        placeholder="请输入内容"
+        v-model="input"
+        style="width:300px; margin-left:20px"
+        @change="search"
+      >
         <i slot="prefix" class="el-input__icon el-icon-search"></i>
       </el-input>
     </div>
@@ -69,37 +74,27 @@ export default {
     }
   },
   methods: {
-    toggleSelection(rows) {
-      if (rows) {
-        rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
-      } else {
-        this.$refs.multipleTable.clearSelection();
-      }
-    },
     handleSelectionChange(val) {
       console.log(val);
     },
     handleEdit(index, row) {
-      console.log(index, row);
+      this.$router.push({ path: "/org/addUser", query: { id: row.id } });
     },
     handleDelete(index, row) {
       console.log(index, row);
     },
     selectChange(val) {
       this.value = val;
-      this.$store.dispatch('changeUserList', {
-        departmentId:val,
+      this.$store.dispatch("changeUserList", {
+        departmentId: val,
         search: this.input
-      })
+      });
     },
-    search(val) {
-      this.value = val;
-      this.$store.dispatch('changeUserList', {
-        departmentId:this.value || "0",
+    search() {
+      this.$store.dispatch("changeUserList", {
+        departmentId: this.value || 0,
         search: this.input
-      })
+      });
     }
   }
 };

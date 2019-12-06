@@ -1,4 +1,4 @@
-import { getDpList, getUserList } from '@/api/index.js'
+import { getDpList, getUserList, getJobList } from '@/api/index.js'
 export function changeDpList({ commit }) {
     getDpList().then(data => {
         if (data.code === 0) {
@@ -8,10 +8,21 @@ export function changeDpList({ commit }) {
         }
     })
 }
+
 export function changeUserList({ commit }, option={}) {
     getUserList(option).then(data => {
         if (data.code === 0) {
             commit('changeUserList', {
+                data: data.data
+            })
+        }
+    })
+}
+
+export function changeJobList({ commit }) {
+    getJobList().then(data => {
+        if (data.code === 0) {
+            commit('changeJobList', {
                 data: data.data
             })
         }
